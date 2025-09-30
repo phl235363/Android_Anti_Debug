@@ -1,3 +1,12 @@
+name: Android CI – AntiDebug
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -6,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Đầu tiên setup JDK 8 cho Gradle
+    # JDK 8 cho Gradle
     - name: Set up JDK 8 (for Gradle)
       uses: actions/setup-java@v4
       with:
@@ -16,7 +25,7 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x AntiDebug/gradlew
 
-    # Tạm thời setup JDK 17 để cài SDK/NDK bằng sdkmanager
+    # Tạm dùng JDK 17 để chạy sdkmanager
     - name: Set up JDK 17 (for sdkmanager)
       uses: actions/setup-java@v4
       with:
