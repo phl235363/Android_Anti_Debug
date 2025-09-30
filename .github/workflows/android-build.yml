@@ -34,12 +34,12 @@ jobs:
 
     - name: Install cmdline-tools
       run: |
-        mkdir -p $ANDROID_HOME/cmdline-tools
-        cd $ANDROID_HOME/cmdline-tools
+        mkdir -p $ANDROID_HOME/cmdline-tools/latest
+        cd $ANDROID_HOME/cmdline-tools/latest
         curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip
-        mkdir latest
-        unzip -q commandlinetools.zip -d latest
+        unzip -qo commandlinetools.zip
         rm commandlinetools.zip
+
 
     - name: Install required Android SDK packages
       run: |
