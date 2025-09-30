@@ -46,8 +46,8 @@ jobs:
           "platforms;android-26" \
           "platform-tools" \
           "build-tools;26.0.3" \
-          "ndk;21.4.7075529" \
-          "cmake;3.10.2.4988404"
+          "ndk;16.1.4479499" \
+          "cmake;3.6.4111459"
 
     # Switch lại JDK 8 để Gradle build project cũ
     - name: Switch back to JDK 8
@@ -60,7 +60,7 @@ jobs:
     - name: Create local.properties
       run: |
         echo "sdk.dir=$ANDROID_HOME" > AntiDebug/local.properties
-        echo "ndk.dir=$ANDROID_NDK_HOME" >> AntiDebug/local.properties
+        echo "ndk.dir=$ANDROID_HOME/ndk/16.1.4479499" >> AntiDebug/local.properties
 
     # Build Debug APK (log chi tiết nếu lỗi)
     - name: Build Debug APK
