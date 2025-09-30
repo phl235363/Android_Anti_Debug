@@ -15,7 +15,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Set up JDK 8
+    - name: Set up JDK 8 (for Gradle)
       uses: actions/setup-java@v4
       with:
         distribution: temurin
@@ -24,16 +24,9 @@ jobs:
     - name: Make gradlew executable
       run: chmod +x AntiDebug/gradlew
 
-    - name: Cache Gradle dependencies
-      uses: gradle/gradle-build-action@v3
-
-    - name: Install Android SDK + NDK
-      uses: android-actions/setup-android@v3
-      with:
-        api-level: 26
-        build-tools: "26.0.3"
-        ndk: "21.4.7075529"
-        cmake: "3.10.2.4988404"
+    - name: Install required Android SDK packages
+      run: |
+        echo "y" | sdkmanager "platforms;android-26" "platform-tools" "build-tools;26.0.3" "ndk;21.4.7075529" "cmake;3.10.2.4988404"
 
     - name: Build Debug APK
       working-directory: AntiDebug
@@ -43,14 +36,10 @@ jobs:
       working-directory: AntiDebug
       run: ./gradlew assembleRelease
 
-    - name: Upload Debug APK
+    - name: Upload APKs
       uses: actions/upload-artifact@v4
       with:
-        name: AntiDebug-debug-apk
-        path: AntiDebug/app/build/outputs/apk/debug/app-debug.apk
-
-    - name: Upload Release APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: AntiDebug-release-apk
-        path: AntiDebug/app/build/outputs/apk/release/app-release.apk
+        name: AntiDebug-apks
+        path: |
+          AntiDebug/app/build/outputs/apk/debug/*.apk
+          AntiDebug/app/build/outputs/apk/release/*.apk
