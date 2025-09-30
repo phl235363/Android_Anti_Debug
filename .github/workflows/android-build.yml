@@ -26,7 +26,12 @@ jobs:
 
     - name: Install required Android SDK packages
       run: |
-        echo "y" | sdkmanager "platforms;android-26" "platform-tools" "build-tools;26.0.3" "ndk;21.4.7075529" "cmake;3.10.2.4988404"
+        echo "y" | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager \
+          "platforms;android-26" \
+          "platform-tools" \
+          "build-tools;26.0.3" \
+          "ndk;21.4.7075529" \
+          "cmake;3.10.2.4988404"
 
     - name: Build Debug APK
       working-directory: AntiDebug
